@@ -1,0 +1,22 @@
+State,max_size,customer_eligibility,li_min_requirement,shared_renewables
+California,20,Other,Yes,Yes
+Colorado,5,county,Yes,Yes
+Connecticut,4,utility_territory,Yes,Yes
+Delaware,2,utility_territory,No,Yes
+Hawaii,,utility_territory,No,Yes
+Illinois,,utility_territory,Yes,Yes
+Maine,5,utility_territory,No,Yes
+Maryland,2,utility_territory,Yes,Yes
+Massachusetts,5,Other,Yes,Yes
+Minnesota,1,county,No,Yes
+Nevada,1,,Yes,Yes
+New Jersey,,,Yes,Yes
+New Hampshire,1,utility_territory,Yes,Yes
+New Mexico,,,Yes,Yes
+New York,2,utility_territory,Yes,Yes
+North Carolina,5,county,No,Yes
+Oregon,3,utility_territory,Yes,Yes
+Rhode Island,10,utility_territory,Yes,Yes
+Vermont,0.5,utility_territory,No,Yes
+Virginia,5,,Yes,Yes
+Washington,5,utility_territory,No,Yes

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="d3.js"></script> 
+		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript" src="CentralViz.js"></script>
+		<style> 
+		.axis {
+			font-size: 13px;
+			font-family: serif;
+		}
+		</style>
+	</head>
+<body onload="setup_main()"> 
+	<h1 >Community Solar Policy Map: U.S. Sites and State Policy Components</h1>
+	<div style="display:flex; flex-direction: row;">
+		<div id="mainmap"></div>
+		<div id="controls1">
+			<h2>Policy Component Map</h2>
+			<p>State Variables:</p>
+				<input type="radio" name="state_var" value="max_size" checked="checked">Maximum Size (MW) <br>
+				<input type="radio" name="state_var" value="customer_eligibility">Customer Eligibility <br>
+				<input type="radio" name="state_var" value="li_min_requirement">Low-Income Stipulation <br>
+				<input type="radio" name="state_var" value="shared_renewables">Shared Renewable Policy 
+			<p>Selected State Variable:</p>
+			<p id="state_var_description"></p>
+			<p>How to Use:</p>
+				<ul>Click on any state to see the corresponding state detail map below. </ul>
+				 <ul>Toggle between state variables using controls above; each is a component of state policy regarding community solar.</ul>
+			<p>Regions in grey indicate no data was found available.</p>
+		</div>
+	</div>
+
+	<div style="display:flex; flex-direction: row;">
+		<div id="statemap" style="padding: 20px"><h2 id="selectedstate">Colorado</h2></div>
+		<div id="controls2" style="padding: 20px">
+			<h2>State Detail Map: Counties and Sites</h2>
+			<p>County Variables:</p>
+				<input type="radio" name="county_var" value="County_Income2012" checked="checked">County Income 
+				<input type="radio" name="county_var" value="Total_damages_pct">Projected CC damage
+				<input type="radio" name="county_var" value="Avg_Daily_Sunlight_kJ">Average Daily Sunlight
+			<p>View Site Markers:</p>
+				<input type="radio" name="site_mode" value="location_only" checked="checked">Locations Only
+				<input type="radio" name="site_mode" value="size">System Size
+				<input type="radio" name="site_mode" value="year">Year of Interconnection
+			<p>Selected County Variable:</p>
+				<p id="county_var_description"></p>
+			<p>How to Use:</p>
+				<ul>Left: Displays the selected county attribute along with black points, the active community solar sites from the NREL Sharing the Sun database.</ul>
+				<ul>Toggle between county attributes using controls above.  Toggle between site marker vars above to size the circles according to the given attribute.</ul>
+				<ul>Try hovering over each site marker for additional information!</ul>
+			<p>Regions in grey indicate no data was found available.</p>
+		</div>
+	</div>
+	<!-- Code snippet of svg pattern fills from https://github.com/iros/patternfills  -->
+	<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="circles-3" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8Y2lyY2xlIGN4PScyJyBjeT0nMicgcj0nMicgZmlsbD0nYmxhY2snLz4KPC9zdmc+" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
+	<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="diagonal-stripe-2" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScvPgogIDxwYXRoIGQ9J00tMSwxIGwyLC0yCiAgICAgICAgICAgTTAsMTAgbDEwLC0xMAogICAgICAgICAgIE05LDExIGwyLC0yJyBzdHJva2U9J2JsYWNrJyBzdHJva2Utd2lkdGg9JzInLz4KPC9zdmc+" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
+	<svg height="10" width="10" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="vertical-stripe-2" patternUnits="userSpaceOnUse" width="10" height="10"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMCcgaGVpZ2h0PScxMCc+CiAgPHJlY3Qgd2lkdGg9JzEwJyBoZWlnaHQ9JzEwJyBmaWxsPSd3aGl0ZScgLz4KICA8cmVjdCB4PScwJyB5PScwJyB3aWR0aD0nMicgaGVpZ2h0PScxMCcgZmlsbD0nYmxhY2snIC8+Cjwvc3ZnPg==" x="0" y="0" width="10" height="10"> </image> </pattern> </defs> </svg>
+	<svg height="8" width="8" xmlns="http://www.w3.org/2000/svg" version="1.1"> <defs> <pattern id="crosshatch" patternUnits="userSpaceOnUse" width="8" height="8"> <image xlink:href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4JyBoZWlnaHQ9JzgnPgogIDxyZWN0IHdpZHRoPSc4JyBoZWlnaHQ9JzgnIGZpbGw9JyNmZmYnLz4KICA8cGF0aCBkPSdNMCAwTDggOFpNOCAwTDAgOFonIHN0cm9rZS13aWR0aD0nMC41JyBzdHJva2U9JyNhYWEnLz4KPC9zdmc+Cg==" x="0" y="0" width="8" height="8"> </image> </pattern> </defs> </svg>
+</body>
+</html>
