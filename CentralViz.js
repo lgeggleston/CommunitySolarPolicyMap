@@ -98,7 +98,7 @@ function setup_main() {
 	d3.csv("state_vars.csv", function(data) {
 
 		//Load in GeoJSON data
-		d3.json("/Data/us-states.json", function(json) {
+		d3.json("us-states.json", function(json) {
 
 			//Merge datasets
 			for (var i = 0; i < data.length; i++) {
